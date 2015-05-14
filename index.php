@@ -25,10 +25,14 @@ curl_setopt($curl, CURLOPT_POST, true);
 curl_setopt($curl, CURLOPT_POSTFIELDS, $access_token_settings);
 curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
 curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
-}
 
 $result = curl_exec($curl);
-curl_close();
+curl_close($curl);
+
+$results = json_decode($result, true);
+echo $results['user']['username'];
+}
+else{}
 
 ?>
 
