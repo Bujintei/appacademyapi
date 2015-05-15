@@ -14,32 +14,32 @@ define('ImageDirectory', 'pics/');
 function connectToInstagram($url){
 	$ch = curl_init();
 	curl_setopt_array($ch, array(
-			CURLOPT_URL => $url,
-			CURLOPT_RETURNTRANSFER => true,
-			CURLOPT_SSL_VERIFYPEER => false,
-			CURLOPT_SSL_VERIFYHOST => 2,
+		CURLOPT_URL => $url, 
+		CURLOPT_RETURNTRANSFER => true,
+		CURLOPT_SSL_VERIFYPEER => false,
+		CURLOPT_SSL_VERIFYHOST => 2,  
 		));
-	$result= curl_exec($ch);
+	$result = curl_exec($ch);
 	curl_close($ch);
 	return $result;
 }
 //function to get userID
 function getUserID($userName){
-	$url = 'http://api.instagram.com/v1/users/search?q='.$userName.'&client_id='.clientID;
+	$url = 'https://api.instagram.com/v1/users/search?q='.$userName.'&client_id='.clientID;
 	$instagramInfo = connectToInstagram($url);
 	$results = json_decode($instagramInfo, true);
-	echo $results['data']['0']['id'];
+	return $results['data']['0']['id'];
 }
 
 //function to print out images onto screen
 function printImages($userID){
-	$url = 'http://api.instagram.com/v1/users/' . $userID . '/media/recent?client_id=' . clientID . '&count=5';
+	$url = 'https://api.instagram.com/v1/users/'.$userID.'/media/recent?client_id='.clientID.'&count=5';
 	$instagramInfo = connectToInstagram($url);
 	$results = json_decode($instagramInfo, true);
 	//Parse through the info one by one
-	foreach($results['data'] as $items){
+	foreach ($results['data'] as $items) {
 		$image_url = $items['images']['low_resolution']['url'];
-		echo '<img src =" '. $image_url .' "/><br/>';
+		echo '<img src=" ' . $image_url . ' "/><br/>';
 	}
 }
 
