@@ -1,0 +1,9 @@
+@import "reset.css";
+@import "normalize.css";
+
+#background {
+	background-image: url("/../appacademyapi/pics/steampunkcity.jpg");
+}
+#text{
+	margin-left: 625px;
+}
